@@ -1,0 +1,26 @@
+#version: "3.9"
+
+services:
+  samba-dc:
+    build: .
+    container_name: samba-ad-dc
+    hostname: srvfog
+    network_mode: host
+    privileged: true
+
+    env_file:
+      - env.sh
+
+    volumes:
+      - samba_lib:/var/lib/samba
+      - samba_etc:/etc/samba
+      - samba_cache:/var/cache/samba
+      - samba_logs:/var/log/samba
+
+    restart: unless-stopped
+
+volumes:
+  samba_lib:
+  samba_etc:
+  samba_cache:
+  samba_logs:
